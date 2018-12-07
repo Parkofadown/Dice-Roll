@@ -1,0 +1,77 @@
+// Roll a six-sided die 36000 times
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define SIZE 13
+
+// function main begins program execution
+int main(void)
+{
+   int frequency[SIZE] = {0}; // clear counts 
+   int dice1;
+   int dice2;
+   int mostRolls = 0;
+   int leastRolls = 0;
+   int face = 0;
+   int roll = 0;
+
+
+   srand(time(NULL)); // seed random number generator
+
+   // roll die 36000 times
+   for ( roll = 1; roll <= 36000; roll++)
+   {
+	dice1 = (1 + rand() % 6);
+    dice2 = (1 + rand() % 6);
+	face = dice1 + dice2;
+    frequency[face] = frequency[face] + 1; 
+	if (frequency[face] > mostRolls)
+	{
+		mostRolls = frequency[face];
+	}
+   }    
+
+
+   printf("%s%17s\n", "Face", "Frequency");
+
+   // output frequency elements 2-12 in tabular format
+   for ( face = 2; face < SIZE; face++) 
+   {
+      printf("%4d%17d\n", face, frequency[face]);
+
+   } 
+  
+    for ( face = 2; face < SIZE; face++) 
+	{
+		if (face == 2)
+		{
+			leastRolls = frequency[face];
+		}else
+		{
+			if (frequency[face] < leastRolls)
+			{
+				leastRolls = frequency[face];
+			}
+		}
+	}
+
+    //gets sides for max rolls
+   for (face = 2; face < SIZE; face++)
+   {
+	   if (mostRolls == frequency[face]){
+		   printf("%d was the most rolled with %d times.\n", face , mostRolls);
+	   }
+   }
+
+   // get amount of least
+   for (face = 2; face < SIZE; face++)
+   {
+	   if ( leastRolls == frequency[face])
+	   {
+		     printf("%d was the least rolled with %d times.\n", face , leastRolls);
+	   }
+   }
+
+
+   system("PAUSE");
+}
